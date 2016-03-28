@@ -1,0 +1,32 @@
+{% extends 'boats/base.html' %}
+
+{% block content %}
+
+<h1>Login</h1>
+
+  <p>
+
+    <form role="form"
+	  class="table"
+	  action="{% url 'boats_auth:login_view' %}?next={{ next_url }}"
+	  method="POST">
+      {% csrf_token %} 
+
+      {% for field in form %}
+      <fieldset class="form-group">
+	<label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+	<div class="form-control">
+
+	  {{ field }}
+
+	</div>
+      </fieldset>
+      {% endfor %}
+
+      <input type="submit" value="Submit"  class="btn btn-primary">
+      <button type="reset" value="Reset" class="btn btn-warning">Reset</button>
+    </form>
+
+{% endblock %}
+
+

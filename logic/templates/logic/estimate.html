@@ -1,0 +1,57 @@
+{% extends 'boats_estimator/base.html' %}
+
+{% block content %}
+
+<h2>Asking price sailboat excessive?</h2>
+
+Find out here,
+based on hundreds of used sailboat adds. <br>
+<p>
+  Fill out the form below. <br>
+<p>
+  Not all fields are required, average values are used when needed.<br>
+
+  {% if estimate %}
+
+  <hr>
+
+<p>
+  Sailboat estimated at <b>{{ estimate }}</b> euros.
+<p>
+
+  {% endif %}
+
+  <hr>
+
+  <form role="form" class="table" action="{% url 'logic:estimate_view' %}" method="POST">
+    
+    {% csrf_token %}
+    
+    {% for field in form %}
+    <fieldset class="form-group">
+      <label class="control-label" for="id_{{ field.name }}">{{ field.label }}</label>
+     
+      <div class="form-control">
+        {{ field }}
+      </div>
+
+      <div class="control-group warning">
+        {% if field.errors %}
+        {{ field.errors }}
+        {% else %}
+        {{ field.help_text }}
+        {% endif %}
+      </div>
+      
+    </fieldset>
+    {% endfor %}
+    <input type="submit" value="Submit"  class="btn btn-primary">
+    <button type="reset" value="Reset" class="btn btn-warning">Reset</button>
+  </form>
+
+
+</div>
+
+</form>
+
+{% endblock %}
